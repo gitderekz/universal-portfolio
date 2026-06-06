@@ -43,6 +43,7 @@ app.use(cors({
 const globalLimiter = rateLimit({
   windowMs: (Number(process.env.RATE_LIMIT_WINDOW) || 15) * 60 * 1000,
   max: Number(process.env.RATE_LIMIT_MAX_REQUESTS) || 100,
+  skipSuccessfulRequests: true, // Don't count successful requests
   message: {
     success: false,
     message: 'Too many requests from this IP, please try again later.'
@@ -50,7 +51,25 @@ const globalLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false
 });
+
+// Stricter rate limiter for auth routes (login, register)
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 20, // 20 attempts per 15 minutes
+  skipSuccessfulRequests: true, // Don't count successful logins
+  message: {
+    success: false,
+    message: 'Too many login attempts from this IP, please try again after 15 minutes.'
+  },
+  standardHeaders: true,
+  legacyHeaders: false
+});
+
+// Apply global limiter to all /api routes
 app.use('/api/', globalLimiter);
+// Apply stricter limiter specifically to auth routes
+app.use('/api/auth/login', authLimiter);
+app.use('/api/auth/register', authLimiter);
 
 // Body Parsing Middleware
 app.use(express.json({ limit: '10mb' }));
