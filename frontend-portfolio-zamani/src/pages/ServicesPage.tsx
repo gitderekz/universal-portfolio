@@ -16,13 +16,10 @@ import {
 } from 'lucide-react';
 
 export const ServicesPage: React.FC = () => {
-  // Fix: Extract the services array from the response
-  const { data: servicesResponse } = useApi(
+  const { data: services } = useApi(
     () => servicesAPI.getAll({ isActive: true }),
-    { services: fallbackServices }
+    fallbackServices
   );
-  
-  const services = servicesResponse?.services || fallbackServices;
 
   const icons: Record<string, React.FC<any>> = {
     Code,
@@ -33,7 +30,9 @@ export const ServicesPage: React.FC = () => {
     Network
   };
 
-  const getIconComponent = (iconName: string) => icons[iconName] || Code;
+  const getIconComponent = (iconName: string) =>
+  icons[iconName] || Code;
+
 
   return (
     <div className="py-20">
@@ -54,7 +53,7 @@ export const ServicesPage: React.FC = () => {
 
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {services && services.map((service: any, index: number) => {
+          {services?.map((service: any, index: number) => {
             const Icon = getIconComponent(service.icon);
             return (
               <GlassCard key={service.id} delay={index * 0.1}>
@@ -73,7 +72,7 @@ export const ServicesPage: React.FC = () => {
 
                   <div className="mb-6">
                     <span className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                      ${parseFloat(service.price).toLocaleString()}
+                      ${service.price}
                     </span>
                     <span className="text-gray-600 dark:text-gray-400 ml-2">
                       {service.priceType}
@@ -82,15 +81,15 @@ export const ServicesPage: React.FC = () => {
 
                   <Link
                     to="/contact"
-                    className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg transition-shadow group"
+                    className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg transition-shadow"
                   >
                     Get Started
-                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-5 h-5 ml-2" />
                   </Link>
                 </motion.div>
               </GlassCard>
             );
-          })}
+          }) || null}
         </div>
 
         {/* Process Section */}

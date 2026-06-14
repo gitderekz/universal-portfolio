@@ -71,12 +71,12 @@ export const projectsAPI = {
 };
 
 export const blogAPI = {
-  getAll: (params?: any) => api.get('/blog', { params }),
-  getById: (id: string) => api.get(`/blog/${id}`),
-  getBySlug: (slug: string) => api.get(`/blog/slug/${slug}`),
-  create: (data: any) => api.post('/blog', data),
-  update: (id: string, data: any) => api.put(`/blog/${id}`, data),
-  delete: (id: string) => api.delete(`/blog/${id}`)
+  getAll: (params?: any) => api.get('/blogs', { params }),
+  getById: (id: string) => api.get(`/blogs/${id}`),
+  getBySlug: (slug: string) => api.get(`/blogs/slug/${slug}`),
+  create: (data: any) => api.post('/blogs', data),
+  update: (id: string, data: any) => api.put(`/blogs/${id}`, data),
+  delete: (id: string) => api.delete(`/blogs/${id}`)
 };
 
 export const testimonialAPI = {
@@ -95,18 +95,18 @@ export const servicesAPI = {
 };
 
 export const teamAPI = {
-  getAll: (params?: any) => api.get('/team', { params }),
-  getById: (id: string) => api.get(`/team/${id}`),
-  create: (data: any) => api.post('/team', data),
-  update: (id: string, data: any) => api.put(`/team/${id}`, data),
-  delete: (id: string) => api.delete(`/team/${id}`)
+  getAll: (params?: any) => api.get('/teams', { params }),
+  getById: (id: string) => api.get(`/teams/${id}`),
+  create: (data: any) => api.post('/teams', data),
+  update: (id: string, data: any) => api.put(`/teams/${id}`, data),
+  delete: (id: string) => api.delete(`/teams/${id}`)
 };
 
 export const contactAPI = {
-  submit: (data: any) => api.post('/contact', data),
-  getAll: (params?: any) => api.get('/contact', { params }),
-  updateStatus: (id: string, status: string) => api.put(`/contact/${id}`, { status }),
-  delete: (id: string) => api.delete(`/contact/${id}`)
+  submit: (data: any) => api.post('/contacts', data),
+  getAll: (params?: any) => api.get('/contacts', { params }),
+  updateStatus: (id: string, status: string) => api.put(`/contacts/${id}`, { status }),
+  delete: (id: string) => api.delete(`/contacts/${id}`)
 };
 
 export const mediaAPI = {
@@ -116,6 +116,15 @@ export const mediaAPI = {
   getAll: (params?: any) => api.get('/media', { params }),
   getById: (id: string) => api.get(`/media/${id}`),
   delete: (id: string) => api.delete(`/media/${id}`)
+};
+
+export const settingsAPI = {
+  getAll: (params?: any) => api.get('/settings', { params }),
+  getByKey: (key: string) => api.get(`/settings/${key}`),
+  create: (data: any) => api.post('/settings', data),
+  update: (key: string, data: any) => api.put(`/settings/${key}`, data),
+  updateMultiple: (settings: any[]) => api.put('/settings/bulk', { settings }),
+  delete: (key: string) => api.delete(`/settings/${key}`)
 };
 
 export default api;

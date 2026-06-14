@@ -24,8 +24,6 @@ import { AdminServices } from '../pages/admin/AdminServices';
 import { AdminTeam } from '../pages/admin/AdminTeam';
 import { AdminTestimonials } from '../pages/admin/AdminTestimonials';
 import { AdminSettings } from '../pages/admin/AdminSettings';
-import { AdminMenus } from '../pages/admin/AdminMenus';
-import { AdminLayout } from '../components/AdminLayout';
 import { NotFoundPage } from '../pages/NotFoundPage';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -54,7 +52,7 @@ function AppRoutes() {
       <Route path="/faq" element={<Layout><FAQPage /></Layout>} />
       <Route path="/contact" element={<Layout><ContactPage /></Layout>} />
       <Route path="/login" element={<LoginPage />} />
-      
+
       {/* Admin Routes */}
       <Route
         path="/admin"
@@ -111,14 +109,6 @@ function AppRoutes() {
             <AdminSettings />
           </ProtectedRoute>
         }
-      />
-      <Route 
-        path="/admin/menus" 
-        element={
-        <ProtectedRoute>
-          <AdminMenus />
-        </ProtectedRoute>
-        } 
       />
 
       {/* 404 Route */}
